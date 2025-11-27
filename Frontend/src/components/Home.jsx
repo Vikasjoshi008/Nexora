@@ -6,17 +6,10 @@ function Home({ user }) {
     const navigate = useNavigate();
 
   return (
-    <div className="landing-root">
-        {/* Background */}
-        {/* <LiquidEther variant="purple" interactive={true} /> */}
-      {/* Foreground content */}
+    <div className="landing-root"> 
       <div className="landing-inner">
-        {/* NAVBAR */}
         <header className="landing-nav">
           <div className="nav-left">
-            {/* <div className="nav-logo-mark">
-                <img src="" alt="" />
-            </div> */}
             <span className="nav-logo-text">Nexora</span>
           </div>
 
