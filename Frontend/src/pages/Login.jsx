@@ -4,7 +4,6 @@ import { useNavigate, Link } from "react-router-dom";
 import AuthNavbar from "../components/AuthNavbar.jsx";
 import { auth, provider, signInWithPopup } from "../../firebase.js";
 import { MyContext } from "../MyContext.jsx";
-import Galaxy from "../components/Galaxy.jsx";
 import LiquidEther from "../components/LiquidEther.jsx";
 
 function Login() {
