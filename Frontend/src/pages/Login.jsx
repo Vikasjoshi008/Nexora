@@ -94,7 +94,7 @@ function Login() {
   return (
     <>
       <div className="login-root">
-        <LiquidEther variant="green"/>
+      <LiquidEther variant="green"/>
       <AuthNavbar />
 
       <div className="auth-bg">

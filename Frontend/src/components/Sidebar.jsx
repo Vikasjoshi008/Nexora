@@ -144,7 +144,10 @@ function Sidebar({user}) {
           <li className="no-history-msg"><h3>No history available.</h3></li>
         ) : (
           allThreads.map((thread, idx) => (
-            <li key={idx} onClick={() => changeThread(thread.threadId)}
+            <li key={idx} onClick={() => { 
+              changeThread(thread.threadId);
+              setSidebarOpen(false);
+            }}
               className={thread.threadId == currThreadId ? `highlighted` : ""}
             >
               {thread.title}
