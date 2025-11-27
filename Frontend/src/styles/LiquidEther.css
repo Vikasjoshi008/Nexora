@@ -1,0 +1,252 @@
+/* src/styles/liquid-ether-lite.css */
+
+/* Base root: full-screen, behind content */
+.le-root {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+
+  --le-bg: #020617;
+  --le-col-a: #7c3aed;
+  --le-col-b: #2563eb;
+  --le-col-c: #ec4899;
+  --le-col-d: #1d4ed8;
+
+  background:
+    radial-gradient(circle at 15% -10%, #020617 0, #020617 35%, #000 100%);
+}
+
+/* Variants – just change palette, structure is same */
+.le-root--purple {
+  --le-bg: #020012;
+  --le-col-a: #7c3aed; /* purple core */
+  --le-col-b: #2563eb; /* blue band */
+  --le-col-c: #ec4899; /* pink highlight */
+  --le-col-d: #1d4ed8; /* deep blue */
+}
+
+.le-root--blue {
+  --le-bg: #010814;
+  --le-col-a: #2563eb;
+  --le-col-b: #38bdf8;
+  --le-col-c: #0ea5e9;
+  --le-col-d: #1d4ed8;
+}
+
+.le-root--green {
+  --le-bg: #00110f;
+  --le-col-a: #14b8a6;
+  --le-col-b: #22c55e;
+  --le-col-c: #2dd4bf;
+  --le-col-d: #0f766e;
+}
+
+/* Shared blob base */
+.le-layer {
+  position: absolute;
+  width: 150vmax;
+  height: 150vmax;
+  top: 50%;
+  left: 50%;
+  border-radius: 999px;
+  filter: blur(80px);
+  opacity: 0.9;
+  mix-blend-mode: screen;
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* Layer 1 – big liquid band */
+.le-layer-1 {
+  background:
+    radial-gradient(circle at 30% 40%, var(--le-col-a) 0, transparent 55%),
+    radial-gradient(circle at 70% 60%, var(--le-col-b) 0, transparent 55%);
+  animation: le-drift-1 26s ease-in-out infinite alternate;
+}
+
+/* Layer 2 – hot pink/orange highlights */
+.le-layer-2 {
+  background:
+    radial-gradient(circle at 35% 35%, var(--le-col-c) 0, transparent 60%),
+    radial-gradient(circle at 65% 25%, rgba(255, 255, 255, 0.18) 0, transparent 70%);
+  opacity: 0.6;
+  animation: le-drift-2 34s ease-in-out infinite alternate;
+}
+
+/* Layer 3 – deeper base wash */
+.le-layer-3 {
+  background:
+    radial-gradient(circle at 25% 80%, var(--le-col-d) 0, transparent 70%),
+    radial-gradient(circle at 80% 45%, var(--le-col-a) 0, transparent 65%);
+  opacity: 0.55;
+  animation: le-drift-3 40s ease-in-out infinite alternate;
+}
+
+/* Core streak – simulates the bright "liquid" line in the middle */
+.le-core {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 50%,
+      rgba(255, 255, 255, 0.18) 0,
+      rgba(255, 255, 255, 0.12) 18%,
+      transparent 45%
+    ),
+    conic-gradient(
+      from 160deg at 50% 50%,
+      transparent 0deg,
+      rgba(236, 72, 153, 0.32) 60deg,
+      rgba(59, 130, 246, 0.35) 140deg,
+      transparent 220deg
+    );
+  mix-blend-mode: screen;
+  filter: blur(40px);
+  opacity: 0.8;
+  transform-origin: center;
+  animation: le-core-wave 30s ease-in-out infinite alternate;
+}
+
+/* Dark vignette, like the liquid ether “frame” */
+.le-vignette {
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 50% 20%, transparent 0, transparent 38%, rgba(0, 0, 0, 0.4) 85%),
+    radial-gradient(circle at 10% 90%, transparent 0, transparent 45%, rgba(0, 0, 0, 0.8) 95%),
+    radial-gradient(circle at 90% 60%, transparent 0, transparent 45%, rgba(0, 0, 0, 0.85) 95%),
+    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.96));
+  pointer-events: none;
+}
+
+/* Animations – include mouse parallax via CSS vars */
+@keyframes le-drift-1 {
+  0% {
+    transform: translate3d(
+        calc(-50% + (var(--le-offset-x, 0px) * 0.20)),
+        calc(-50% + (var(--le-offset-y, 0px) * 0.20)),
+        0
+      )
+      scale(1.0)
+      rotate(0deg);
+  }
+  50% {
+    transform: translate3d(
+        calc(-50% + (var(--le-offset-x, 0px) * 0.20) + 30px),
+        calc(-50% + (var(--le-offset-y, 0px) * 0.20) - 10px),
+        0
+      )
+      scale(1.06)
+      rotate(10deg);
+  }
+  100% {
+    transform: translate3d(
+        calc(-50% + (var(--le-offset-x, 0px) * 0.20) - 35px),
+        calc(-50% + (var(--le-offset-y, 0px) * 0.20) + 18px),
+        0
+      )
+      scale(1.03)
+      rotate(-8deg);
+  }
+}
+
+@keyframes le-drift-2 {
+  0% {
+    transform: translate3d(
+        calc(-50% + (var(--le-offset-x, 0px) * 0.28) + 25px),
+        calc(-50% + (var(--le-offset-y, 0px) * 0.28) - 30px),
+        0
+      )
+      scale(1.12)
+      rotate(0deg);
+  }
+  50% {
+    transform: translate3d(
+        calc(-50% + (var(--le-offset-x, 0px) * 0.28) - 10px),
+        calc(-50% + (var(--le-offset-y, 0px) * 0.28) + 40px),
+        0
+      )
+      scale(1.05)
+      rotate(-16deg);
+  }
+  100% {
+    transform: translate3d(
+        calc(-50% + (var(--le-offset-x, 0px) * 0.28) - 40px),
+        calc(-50% + (var(--le-offset-y, 0px) * 0.28) - 10px),
+        0
+      )
+      scale(1.08)
+      rotate(18deg);
+  }
+}
+
+@keyframes le-drift-3 {
+  0% {
+    transform: translate3d(
+        calc(-50% + (var(--le-offset-x, 0px) * 0.34) - 20px),
+        calc(-50% + (var(--le-offset-y, 0px) * 0.34) + 10px),
+        0
+      )
+      scale(1.05)
+      rotate(0deg);
+  }
+  50% {
+    transform: translate3d(
+        calc(-50% + (var(--le-offset-x, 0px) * 0.34) + 30px),
+        calc(-50% + (var(--le-offset-y, 0px) * 0.34) - 20px),
+        0
+      )
+      scale(1.0)
+      rotate(18deg);
+  }
+  100% {
+    transform: translate3d(
+        calc(-50% + (var(--le-offset-x, 0px) * 0.34) + 10px),
+        calc(-50% + (var(--le-offset-y, 0px) * 0.34) + 40px),
+        0
+      )
+      scale(1.08)
+      rotate(-18deg);
+  }
+}
+
+/* Core streak movement */
+@keyframes le-core-wave {
+  0% {
+    transform: translate3d(
+        calc(var(--le-offset-x, 0px) * 0.15),
+        calc(var(--le-offset-y, 0px) * 0.15),
+        0
+      )
+      scale(1.0)
+      rotate(0deg);
+  }
+  50% {
+    transform: translate3d(
+        calc(var(--le-offset-x, 0px) * 0.15 + 8px),
+        calc(var(--le-offset-y, 0px) * 0.15 - 6px),
+        0
+      )
+      scale(1.03)
+      rotate(6deg);
+  }
+  100% {
+    transform: translate3d(
+        calc(var(--le-offset-x, 0px) * 0.15 - 10px),
+        calc(var(--le-offset-y, 0px) * 0.15 + 4px),
+        0
+      )
+      scale(1.02)
+      rotate(-6deg);
+  }
+}
+
+/* Respect reduced-motion users */
+@media (prefers-reduced-motion: reduce) {
+  .le-layer,
+  .le-core {
+    animation: none;
+    transform: translate3d(-50%, -50%, 0) scale(1);
+  }
+}

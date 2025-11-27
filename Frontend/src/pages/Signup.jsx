@@ -5,6 +5,7 @@ import AuthNavbar from "../components/AuthNavbar.jsx";
 import { auth, provider, signInWithPopup } from "../../firebase.js";
 import { MyContext } from "../MyContext.jsx";
 import Galaxy from "../components/Galaxy.jsx";
+import LiquidEther from "../components/LiquidEther.jsx";
 
 
 function Signup() {
@@ -98,9 +99,8 @@ function Signup() {
   return (
     <>
      <div className="login-root">
-        {/* Galaxy full-screen background */}
-      <Galaxy />
-      
+      <LiquidEther variant="blue"/>     
+       
       <AuthNavbar />
     
     

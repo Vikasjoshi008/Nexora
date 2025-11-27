@@ -5,6 +5,7 @@ import AuthNavbar from "../components/AuthNavbar.jsx";
 import { auth, provider, signInWithPopup } from "../../firebase.js";
 import { MyContext } from "../MyContext.jsx";
 import Galaxy from "../components/Galaxy.jsx";
+import LiquidEther from "../components/LiquidEther.jsx";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -93,9 +94,7 @@ function Login() {
   return (
     <>
       <div className="login-root">
-        {/* Galaxy full-screen background */}
-        <Galaxy />
-
+        <LiquidEther variant="green"/>
       <AuthNavbar />
 
       <div className="auth-bg">

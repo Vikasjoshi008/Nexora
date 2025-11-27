@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Galaxy from "./Galaxy";
 import "../styles/Home.css";
+import LiquidEther from "./LiquidEther";
 
 function Home({ user }) {
     const navigate = useNavigate();
@@ -9,7 +10,7 @@ function Home({ user }) {
   return (
     <div className="landing-root">
         {/* Background */}
-        <Galaxy />
+        {/* <LiquidEther variant="purple" interactive={true} /> */}
       {/* Foreground content */}
       <div className="landing-inner">
         {/* NAVBAR */}
