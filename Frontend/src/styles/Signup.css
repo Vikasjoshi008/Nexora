@@ -28,7 +28,7 @@ html, body, #root { height: 100%; }
   color: var(--text);
 }
 
-/* floating glow blobs */
+/* floating glow blobs
 .auth-bg::before,
 .auth-bg::after {
   content: "";
@@ -46,7 +46,7 @@ html, body, #root { height: 100%; }
 .auth-bg::after {
   bottom: -15%; right: -10%;
   animation-duration: 18s;
-}
+} */
 
 @keyframes float {
   from { transform: translateY(-12px) translateX(-8px) scale(1.02); }
