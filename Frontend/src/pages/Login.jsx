@@ -93,11 +93,10 @@ function Login() {
   return (
     <>
       <div className="login-root">
-      <LiquidEther variant="green"/>
+      <LiquidEther variant="green" interactive={false}/>
       <AuthNavbar />
 
       <div className="auth-bg">
-        {/* animated gradient blobs are created via CSS pseudo-elements */}
         <div className="auth-card" role="region" aria-label="Login form">
           <h2 className="auth-title">
             Login

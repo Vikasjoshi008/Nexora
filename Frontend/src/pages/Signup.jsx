@@ -98,7 +98,7 @@ function Signup() {
   return (
     <>
      <div className="login-root">
-      <LiquidEther variant="blue"/>     
+      <LiquidEther variant="blue" interactive={false} />     
        
       <AuthNavbar />
     

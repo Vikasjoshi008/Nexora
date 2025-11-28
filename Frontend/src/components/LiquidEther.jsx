@@ -1,4 +1,3 @@
-// src/components/LiquidEtherLite.jsx
 import React, { useEffect, useState } from "react";
 import "../styles/LiquidEther.css";
 

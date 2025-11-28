@@ -4,7 +4,6 @@ import Thread from '../models/Thread.js'
 import  getGeminiAIAPIResponse from "../utils/geminiai.js"
 import {requireAuth} from './requireAuth.js'
 import mongoose from 'mongoose';
-import { Types } from "mongoose";
 
 const router=express.Router();
 
