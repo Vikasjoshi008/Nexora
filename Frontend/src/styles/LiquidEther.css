@@ -1,6 +1,4 @@
-/* src/styles/liquid-ether-lite.css */
 
-/* Base root: full-screen, behind content */
 .le-root {
   position: fixed;
   inset: 0;

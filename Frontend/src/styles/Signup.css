@@ -28,25 +28,6 @@ html, body, #root { height: 100%; }
   color: var(--text);
 }
 
-/* floating glow blobs
-.auth-bg::before,
-.auth-bg::after {
-  content: "";
-  position: absolute;
-  width: 650px; height: 650px;
-  filter: blur(70px);
-  opacity: .22;
-  z-index: 0;
-  pointer-events: none;
-  animation: float 14s ease-in-out infinite alternate;
-}
-.auth-bg::before {
-  top: -10%; left: -10%;
-}
-.auth-bg::after {
-  bottom: -15%; right: -10%;
-  animation-duration: 18s;
-} */
 
 @keyframes float {
   from { transform: translateY(-12px) translateX(-8px) scale(1.02); }
