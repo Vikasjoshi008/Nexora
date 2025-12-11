@@ -78,7 +78,7 @@ This project showcases:
 
 ## Project Structure
 
-- Nexora/
+\- Nexora/
 \- ├── Frontend/
 \- │ ├── src/
 \- │ │ ├── assets/
