@@ -79,25 +79,25 @@ This project showcases:
 ## Project Structure
 
 - Nexora/
-- ├── Frontend/
-- │ ├── src/
-- │ │ ├── assets/
-- │ │ ├── components/
-- │ │ ├── pages/
-- │ │ ├── styles/
-- │ │ ├── App.jsx
-- │ │ └── main.jsx
-- │ │ └── MyContext.jsx
-- │ └── package.json
-- │
-- ├── Backend/
-- │ ├── models/
-- │ ├── routes/
-- │ ├── utils/
-- │ ├── server.js
-- │ └── package.json
-- │
-- └── README.md
+\- ├── Frontend/
+\- │ ├── src/
+\- │ │ ├── assets/
+\- │ │ ├── components/
+\- │ │ ├── pages/
+\- │ │ ├── styles/
+\- │ │ ├── App.jsx
+\- │ │ └── main.jsx
+\- │ │ └── MyContext.jsx
+\- │ └── package.json
+\- │
+\- ├── Backend/
+\- │ ├── models/
+\- │ ├── routes/
+\- │ ├── utils/
+\- │ ├── server.js
+\- │ └── package.json
+\- │
+\- └── README.md
 
 ## Running Locally
 
