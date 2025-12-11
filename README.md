@@ -78,20 +78,22 @@ This project showcases:
 
 ## Project Structure
 
-- nexora/
-- ├── client/
+- Nexora/
+- ├── Frontend/
 - │ ├── src/
+- │ │ ├── assets/
 - │ │ ├── components/
 - │ │ ├── pages/
 - │ │ ├── styles/
-- │ │ ├── MyContext.jsx
-- │ │ └── App.jsx
+- │ │ ├── App.jsx
+- │ │ └── main.jsx
+- │ │ └── MyContext.jsx
 - │ └── package.json
 - │
-- ├── server/
+- ├── Backend/
 - │ ├── models/
 - │ ├── routes/
-- │ ├── controllers/
+- │ ├── utils/
 - │ ├── server.js
 - │ └── package.json
 - │
