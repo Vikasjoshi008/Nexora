@@ -115,6 +115,6 @@ Nexora/
 - npm run dev
 
 Author ❤️
-Vikas Joshi
-Full-Stack MERN Developer
+Vikas Joshi <br>
+Full-Stack MERN Developer <br>
 Creator of Nexora
