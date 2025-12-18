@@ -1,5 +1,5 @@
 import "../styles/Login.css";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AuthNavbar from "../components/AuthNavbar.jsx";
 import { auth, provider, signInWithPopup } from "../../firebase.js";
@@ -13,6 +13,10 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const { setAuthLoading } = useContext(MyContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch("https://nexora-c41k.onrender.com/health").catch(() => {});
+  }, []);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -34,7 +38,6 @@ function Login() {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
         navigate("/chat");
-        window.location.reload();
       } else {
         if (
           (data.error && data.error.toLowerCase().includes("not found")) ||
@@ -55,8 +58,8 @@ function Login() {
   };
 
   const handleGoogleLogin = async () => {
+    setAuthLoading(true);
     try {
-      setAuthLoading(true);
       const result = await signInWithPopup(auth, provider);
       const idToken = await result.user.getIdToken(true);
 
@@ -83,8 +86,11 @@ function Login() {
         alert(data.error || "Login failed");
       }
     } catch (err) {
-      console.error("Google login error (detailed):", err.name, err.message, err.code);
-      alert(`Google login failed: ${err.message}`);
+      if(err.code === "auth/popup-closed-by-user"){
+      setAuthLoading(false);
+      console.log("User closed Google popup");
+      return;
+    }
     } finally {
       setAuthLoading(false);
     }
@@ -93,7 +99,7 @@ function Login() {
   return (
     <>
       <div className="login-root">
-      <LiquidEther variant="green" interactive={false}/>
+      <LiquidEther variant="red" interactive={false}/>
       <AuthNavbar />
 
       <div className="auth-bg">

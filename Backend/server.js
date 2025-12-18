@@ -34,6 +34,11 @@ app.get("/", (req, res)=> {
   res.send("This is root");
 });
 
+app.get("/health", (req, res) => {
+  res.status(200).send("OK");
+});
+
+
 const connectDB = async() => {
   try {
     await mongoose.connect(process.env.MONGO_URI);

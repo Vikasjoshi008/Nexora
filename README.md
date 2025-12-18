@@ -114,7 +114,7 @@ Nexora/
 - npm install
 - npm run dev
 
-Author ❤️
+Author ❤️ <br>
 Vikas Joshi <br>
 Full-Stack MERN Developer <br>
 Creator of Nexora

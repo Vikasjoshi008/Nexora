@@ -5,6 +5,7 @@ import AuthNavbar from "../components/AuthNavbar.jsx";
 import { auth, provider, signInWithPopup } from "../../firebase.js";
 import { MyContext } from "../MyContext.jsx";
 import LiquidEther from "../components/LiquidEther.jsx";
+import { error } from "three/src/utils.js";
 
 
 function Signup() {
@@ -88,8 +89,10 @@ function Signup() {
       alert(data.error || "Login failed");
     }
   } catch (err) {
-    console.error("Google login error (detailed):", err.name, err.message, err.code);
-    alert(`Google login failed: ${err.message}`);
+    if(err.code === "auth/popup-closed-by-user"){
+      console.log("User closed Google popup");
+      return;
+    }
   } finally {
     setAuthLoading(false);
   }
@@ -98,7 +101,7 @@ function Signup() {
   return (
     <>
      <div className="login-root">
-      <LiquidEther variant="blue" interactive={false} />     
+      <LiquidEther variant="green" interactive={false} />     
        
       <AuthNavbar />
     

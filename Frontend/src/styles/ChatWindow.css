@@ -103,16 +103,14 @@
         max-width: 100%;
     }
 
-    /* make dropdown centered and full-ish width on mobile so it's easy to tap */
     .dropDown {
-        position: fixed; /* Change to fixed to ensure it stays in viewport */
-        top: 60px;      /* Adjust based on navbar height */
-        right: 10px;    /* Keep some margin from right edge */
-        /* left: 4rem;     Keep some margin from left edge */
-        transform: none; /* Remove transform to prevent positioning issues */
-        width: auto;    /* Let it take available width */
-        min-width: 0;   /* Remove min-width constraint */
-        max-width: calc(100% - 20px); /* Ensure some margin on sides */
+        position: fixed; 
+        top: 60px;      
+        right: 10px;    
+        transform: none; 
+        width: auto;    
+        min-width: 0;   
+        max-width: calc(100% - 20px); 
         z-index: 1000;
     }
 
@@ -385,7 +383,17 @@ input:focus {
   #submit{ width: 44px; height: 44px; }
 }
 @media (max-width: 480px){
-  .inputBox{ grid-template-columns: 1fr 42px 42px; }
-  .micBtn{ width: 42px; height: 42px; }
-  #submit{ width: 42px; height: 42px; }
+  .inputBox{ 
+    grid-template-columns: 1fr 40px 40px;
+    margin-bottom: 0rem;
+}
+  .micBtn{ 
+    width: 42px; 
+    height: 42px; 
+}
+  #submit > i{ 
+    width: 42px; 
+    height: 42px; 
+    color: white;
+}
 }

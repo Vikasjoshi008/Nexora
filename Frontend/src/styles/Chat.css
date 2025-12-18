@@ -161,6 +161,9 @@
   .assistantMessage { font-size: 0.98rem; max-width: 96%; }
   .userMessage { font-size: 0.98rem; max-width: 92%; }
   .userDiv.center .userMessage { max-width: 68%; }
+  .gptMsgRow {
+    text-align: left;
+  }
 }
 
 /* ensure links/buttons inside assistant messages align nicely */
