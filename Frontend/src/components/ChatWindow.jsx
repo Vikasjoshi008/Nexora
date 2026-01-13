@@ -202,6 +202,7 @@ function ChatWindow({ user }) {
       if (res.ok) {
         localStorage.removeItem("user");
         navigate("/login");
+        window.location.reload();
       } else {
         alert("Logout failed");
       }
