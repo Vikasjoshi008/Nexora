@@ -38,6 +38,7 @@ function Login() {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
         navigate("/chat");
+        window.location.reload();
       } else {
         if (
           (data.error && data.error.toLowerCase().includes("not found")) ||
