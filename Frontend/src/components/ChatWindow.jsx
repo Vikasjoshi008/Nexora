@@ -1,7 +1,7 @@
 import "../styles/ChatWindow.css";
 import Chat from "./Chat.jsx";
 import { MyContext } from "../MyContext.jsx";
-import { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useState, useEffect, useRef, use } from "react";
 import { ScaleLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 
@@ -23,6 +23,7 @@ function ChatWindow({ user }) {
   const [isopen, setIsOpen] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [supportsSR, setSupportsSR] = useState(false);
+  const [loggedout, setLoggedout] = useState(false);
 
   const navigate = useNavigate();
   const recognitionRef = useRef(null);
@@ -33,6 +34,10 @@ function ChatWindow({ user }) {
 
   // no-op to avoid errors if you add TTS later
   const stopSpeak = () => {};
+
+  useEffect(() => {
+    setLoggedout(false);
+  }, [loggedout]);;
 
   // ---- SpeechRecognition setup (desktop + Android Chrome) ----
   useEffect(() => {
@@ -202,6 +207,7 @@ function ChatWindow({ user }) {
       if (res.ok) {
         localStorage.removeItem("user");
         navigate("/login");
+        setLoggedout(true);
         window.location.reload();
       } else {
         alert("Logout failed");
