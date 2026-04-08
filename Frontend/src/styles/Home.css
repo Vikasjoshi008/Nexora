@@ -1,4 +1,35 @@
 /* src/styles/RootPage.css */
+.landing-root {
+  height: 100vh;
+  background: radial-gradient(circle, #1a1a2e, #0f0f14);
+  color: white;
+}
+
+/* HERO */
+.hero-title {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.hero-gradient-word {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* BUTTONS */
+.hero-primary {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+}
+
+.hero-secondary {
+  border: 1px solid var(--border);
+  padding: 12px 20px;
+  border-radius: 25px;
+}
 
 .landing-root {
   background-color: black;
@@ -7,8 +38,13 @@
   width: 100%;
   overflow: hidden;
   color: #f9fbff;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-    "Segoe UI", sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Text",
+    "Segoe UI",
+    sans-serif;
 }
 
 /* Ensure Liquid Ether sits behind everything */

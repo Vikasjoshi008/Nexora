@@ -18,180 +18,178 @@
   pointer-events: none; /* background only */
 }
 
-
-
 .chatWindow {
-    background: linear-gradient(135deg, #1a1a1a 0%, #212121 100%);
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    color: #f5f5f5;
+  background: linear-gradient(135deg, #1a1a1a 0%, #212121 100%);
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: #f5f5f5;
 }
 
 @media (max-width: 768px) {
-    .chatWindow {
-        min-height: 100dvh;
-    }
+  .chatWindow {
+    min-height: 100dvh;
+  }
 }
 
 @media (max-width: 480px) {
-    .chatWindow {
-        /* align-items: center; */
-        padding-top: 8px;
-        padding-bottom: 12px;
-        text-align: center; /* center fallback for text */
-    }
+  .chatWindow {
+    /* align-items: center; */
+    padding-top: 8px;
+    padding-bottom: 12px;
+    text-align: center; /* center fallback for text */
+  }
 
-    .navbar {
-        padding: 0.5rem 0.6rem;
-        gap: 8px;
-        justify-content: space-between;
-        width: 100%;
-    }
-
-    .navLeft {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .floatingHamburger {
-        margin-left: 6px;
-        padding: 8px;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-    }
-
-    .userIcon {
-        width: 44px;
-        height: 44px;
-        font-size: 1.05rem;
-    }
-
-    .userIconDiv {
-        margin: 0 8px;
-    }
-
-    /* center and enlarge input text for easier typing on mobile */
-    .inputBox {
-        /* width: calc(100% - 24px); */
-        /* margin: 0.8rem 12px 1rem 12px; */
-        /* padding: 0.6rem 0.9rem; */
-        border-radius: 3rem;
-    }
-
-    input {
-        /* padding: 14px; */
-        font-size: 1.05rem;
-        /* text-align: center; */
-    }
-
-    #submit i {
-        font-size: 1.15rem;
-    }
-
-    .chatBody {
-        width: 100%;
-        padding: 0.6rem 10px;
-        max-width: 100%;
-    }
-
-    .dropDown {
-        position: fixed; 
-        top: 60px;      
-        right: 10px;    
-        transform: none; 
-        width: auto;    
-        min-width: 0;   
-        max-width: calc(100% - 20px); 
-        z-index: 1000;
-    }
-
-    .dropDown p {
-        margin: 0 0 0.4rem 0;
-        font-size: 0.95rem;
-        text-align: center;
-        word-break: break-word;
-    }
-
-    .dropDownItem {
-        padding: 12px;
-        text-align: left;
-        justify-content: flex-start;
-        font-size: 1rem;
-    }
-
-    .dropDown::before {
-        right: 20px;    /* Align with user icon */
-        top: -6px;
-        content: "";
-        position: absolute;
-        width: 12px;
-        height: 12px;
-        background: rgba(33,33,33,0.98);
-        transform: rotate(45deg);
-        border-left: 1px solid rgba(255,255,255,0.02);
-        border-top: 1px solid rgba(255,255,255,0.02);
-    }
-
-    /* Slightly larger greeting / title */
-    .multiColorName > b {
-        font-size: 1.9rem;
-        display: block;
-        text-align: center;
-    }
-
-    /* make scrollbar little thicker and visible on mobile for usability */
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: rgba(255,255,255,0.18);
-    }
-}
-
-.navbar {
-    width: 100%;
-    display: flex;
+  .navbar {
+    padding: 0.5rem 0.6rem;
+    gap: 8px;
     justify-content: space-between;
+    width: 100%;
+  }
+
+  .navLeft {
+    display: flex;
     align-items: center;
-    padding: 0.8rem 0;
-}
+    gap: 8px;
+  }
 
-.navbar span {
-    margin: 1rem 2rem;
-}
-
-.userIcon {
-    background-color: #2c2c2c;
-    color: #fff;
-    font-weight: bold;
-    border-radius: 50%;
+  .floatingHamburger {
+    margin-left: 6px;
+    padding: 8px;
     width: 40px;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    font-size: 18px;
+  }
+
+  .userIcon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.05rem;
+  }
+
+  .userIconDiv {
+    margin: 0 8px;
+  }
+
+  /* center and enlarge input text for easier typing on mobile */
+  .inputBox {
+    /* width: calc(100% - 24px); */
+    /* margin: 0.8rem 12px 1rem 12px; */
+    /* padding: 0.6rem 0.9rem; */
+    border-radius: 3rem;
+  }
+
+  input {
+    /* padding: 14px; */
+    font-size: 1.05rem;
+    /* text-align: center; */
+  }
+
+  #submit i {
+    font-size: 1.15rem;
+  }
+
+  .chatBody {
+    width: 100%;
+    padding: 0.6rem 10px;
+    max-width: 100%;
+  }
+
+  .dropDown {
+    position: fixed;
+    top: 60px;
+    right: 10px;
+    transform: none;
+    width: auto;
+    min-width: 0;
+    max-width: calc(100% - 20px);
+    z-index: 1000;
+  }
+
+  .dropDown p {
+    margin: 0 0 0.4rem 0;
+    font-size: 0.95rem;
+    text-align: center;
+    word-break: break-word;
+  }
+
+  .dropDownItem {
+    padding: 12px;
+    text-align: left;
+    justify-content: flex-start;
+    font-size: 1rem;
+  }
+
+  .dropDown::before {
+    right: 20px; /* Align with user icon */
+    top: -6px;
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: rgba(33, 33, 33, 0.98);
+    transform: rotate(45deg);
+    border-left: 1px solid rgba(255, 255, 255, 0.02);
+    border-top: 1px solid rgba(255, 255, 255, 0.02);
+  }
+
+  /* Slightly larger greeting / title */
+  .multiColorName > b {
+    font-size: 1.9rem;
+    display: block;
+    text-align: center;
+  }
+
+  /* make scrollbar little thicker and visible on mobile for usability */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.18);
+  }
+}
+
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 0;
+}
+
+.navbar span {
+  margin: 1rem 2rem;
+}
+
+.userIcon {
+  background-color: #2c2c2c;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
 }
 
 .userIcon:hover {
-    transform: scale(1.05);
-    box-shadow: gold 0px 0px 6px 2px;
+  transform: scale(1.05);
+  box-shadow: gold 0px 0px 6px 2px;
 }
 
 .userIconDiv {
-    margin: 0rem 1rem;
-    position: relative; /* ensure dropdown is positioned relative to the icon */
-    display: inline-block;
+  margin: 0rem 1rem;
+  position: relative; /* ensure dropdown is positioned relative to the icon */
+  display: inline-block;
 }
 
 .userAvatar {
@@ -201,67 +199,67 @@
 }
 
 .chatInput {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1rem;
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .inputBox {
-    background-color: #303030;
-    width: 100%;
-    max-width: 900px;
-    border-radius: 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1.5rem;
-    margin: 1rem;
-    transition: all 0.3s ease;
+  background-color: #303030;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1.5rem;
+  margin: 1rem;
+  transition: all 0.3s ease;
 }
 
 input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    padding: 15px;
-    font-size: 1rem;
-    color: #fff;
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 15px;
+  font-size: 1rem;
+  color: #fff;
 }
 
 input:focus {
-    outline: none;
+  outline: none;
 }
 
 #submit {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #submit i {
-    color: #808080;
-    font-size: 1.2rem;
-    padding-top: 10px;
-    transition: all 0.3s ease;
+  color: #808080;
+  font-size: 1.2rem;
+  padding-top: 10px;
+  transition: all 0.3s ease;
 }
 
 #submit i:hover {
-    color: white;
-    transform: scale(1.1);
+  color: white;
+  transform: scale(1.1);
 }
 
 .dropDown {
-    position: absolute;
-    top: calc(100% + 10px); /* place below the icon */
-    right: 0;               /* align to the right edge of the icon container */
-    transform: none;
-    background-color: rgba(33,33,33,0.98);
-    border-radius: 10px;
-    padding: 0.75rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-    z-index: 1000;
-    min-width: 220px;
+  position: absolute;
+  top: calc(100% + 10px); /* place below the icon */
+  right: 0; /* align to the right edge of the icon container */
+  transform: none;
+  background-color: rgba(33, 33, 33, 0.98);
+  border-radius: 10px;
+  padding: 0.75rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+  min-width: 220px;
 }
 
 /* small caret (optional) */
@@ -272,128 +270,154 @@ input:focus {
   right: 14px;
   width: 12px;
   height: 12px;
-  background: rgba(33,33,33,0.98);
+  background: rgba(33, 33, 33, 0.98);
   transform: rotate(45deg);
-  border-left: 1px solid rgba(255,255,255,0.02);
-  border-top: 1px solid rgba(255,255,255,0.02);
+  border-left: 1px solid rgba(255, 255, 255, 0.02);
+  border-top: 1px solid rgba(255, 255, 255, 0.02);
 }
 
 .dropDownItem {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0.8rem 1rem;
-    border-radius: 8px;
-    transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
 .dropDownItem i {
-    width: 20px;
+  width: 20px;
 }
 
 .dropDownItem:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateX(5px);
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
 }
 
 .floatingHamburger {
-    background: rgba(45, 45, 45, 0.9);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 10px;
-    margin-left: 3rem;
-    border-radius: 12px;
-    transition: all 0.3s ease;
+  background: rgba(45, 45, 45, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  margin-left: 3rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
 }
 
 .floatingHamburger:hover {
-    background: rgba(60, 60, 60, 0.9);
-    transform: scale(1.05);
+  background: rgba(60, 60, 60, 0.9);
+  transform: scale(1.05);
 }
 
 .chatBody {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 1rem;
-    overflow-y: auto;
-    scroll-behavior: smooth;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 .loaderWrap {
-    display: flex;
-    justify-content: center;
-    padding: 2rem;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.3);
 }
 
 /* ////////////// * mic/ 
 /* make room for the mic + send */
-.inputBox{
+.inputBox {
   display: grid;
-  grid-template-columns: 1fr 46px 46px;  /* was 1fr 46px */
+  grid-template-columns: 1fr 46px 46px; /* was 1fr 46px */
   gap: 10px;
   /* ...rest unchanged... */
 }
 
 /* mic button */
-.micBtn{
-  display: grid; place-items: center;
-  width: 46px; height: 46px; border-radius: 12px;
+.micBtn {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
   border: 1px solid var(--border);
-  background: rgba(255,255,255,.04);
-  color: inherit; cursor: pointer;
-  transition: transform .06s ease, filter .2s ease, box-shadow .25s ease;
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+  cursor: pointer;
+  transition:
+    transform 0.06s ease,
+    filter 0.2s ease,
+    box-shadow 0.25s ease;
 }
-.micBtn:hover{ background: rgba(255,255,255,.07); box-shadow: 0 10px 22px rgba(0,0,0,.25); }
-.micBtn:active{ transform: translateY(1px) scale(.98); }
+.micBtn:hover {
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+}
+.micBtn:active {
+  transform: translateY(1px) scale(0.98);
+}
 
 /* recording state */
-.micBtn.active{
-  background: rgba(239,68,68,.15);
-  border-color: rgba(239,68,68,.35);
-  box-shadow: 0 0 0 6px rgba(239,68,68,.15);
+.micBtn.active {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.35);
+  box-shadow: 0 0 0 6px rgba(239, 68, 68, 0.15);
   animation: pulseMic 1s ease-in-out infinite;
 }
 @keyframes pulseMic {
-  0%,100% { box-shadow: 0 0 0 6px rgba(239,68,68,.15); }
-  50%     { box-shadow: 0 0 0 10px rgba(239,68,68,.25); }
+  0%,
+  100% {
+    box-shadow: 0 0 0 6px rgba(239, 68, 68, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(239, 68, 68, 0.25);
+  }
 }
 
-@media (max-width: 768px){
-  .inputBox{ grid-template-columns: 1fr 44px 44px; }
-  .micBtn{ width: 44px; height: 44px; border-radius: 10px; }
-  #submit{ width: 44px; height: 44px; }
+@media (max-width: 768px) {
+  .inputBox {
+    grid-template-columns: 1fr 44px 44px;
+  }
+  .micBtn {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+  }
+  #submit {
+    width: 44px;
+    height: 44px;
+  }
 }
-@media (max-width: 480px){
-  .inputBox{ 
+@media (max-width: 480px) {
+  .inputBox {
     grid-template-columns: 1fr 40px 40px;
     margin-bottom: 0rem;
-}
-  .micBtn{ 
-    width: 42px; 
-    height: 42px; 
-}
-  #submit > i{ 
-    width: 42px; 
-    height: 42px; 
+  }
+  .micBtn {
+    width: 42px;
+    height: 42px;
+  }
+  #submit > i {
+    width: 42px;
+    height: 42px;
     color: white;
-}
+  }
 }

@@ -1,36 +1,44 @@
 * {
-    color: #ececec;
-    font-family: 'Inter', Roboto, 'Open sans', 'Helvetica Neue', sans-serif;
+  color: #ececec;
+  font-family: "Inter", Roboto, "Open sans", "Helvetica Neue", sans-serif;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+:root {
+  --primary: #6366f1;
+  --secondary: #8b5cf6;
+  --glass: rgba(255, 255, 255, 0.05);
+  --border: rgba(255, 255, 255, 0.1);
 }
 
 .app {
-    background-color: rgba(59,130,246,0.5);
-    display: flex;
-    min-height: 100vh;
+  background-color: rgba(59, 130, 246, 0.5);
+  display: flex;
+  min-height: 100vh;
 }
 
 @media (max-width: 768px) {
   .app {
     flex-direction: column;
-       overflow-y: scroll;
-        -ms-overflow-style: none;
-        &::-webkit-scrollbar {
-        display: none;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 
   .chatWindow {
     width: 100%;
-       overflow-y: scroll;
-        -ms-overflow-style: none;
-        &::-webkit-scrollbar {
-        display: none;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 
