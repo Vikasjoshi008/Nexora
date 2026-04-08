@@ -39,10 +39,6 @@ app.use((req, res, next) => {
 
   next();
 });
-app.use((req, res, next) => {
-  res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
-  next();
-});
 
 app.get("/health", (req, res) => {
   res.status(200).send("OK");
