@@ -29,7 +29,7 @@ const getGroqAIResponse = async (input) => {
     }
 
     const payload = {
-      model: "llama3-8b-8192", // 🔥 fast + free
+      model: "llama-3.1-8b-instant",
       messages,
       temperature: 0.7,
     };
