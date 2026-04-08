@@ -5,7 +5,6 @@ import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github-dark.css";
 
-
 function Chat() {
   const { newChat, prevChats, reply } = useContext(MyContext);
   const [latestReply, setLatestReply] = useState(null);
@@ -78,11 +77,14 @@ function Chat() {
 
   return (
     <>
-      {newChat && 
+      {newChat && (
         <h1 className={`multiColorName`}>
           {user ? (
             <>
-              <span>Hi <b className="hero-gradient-word">{user.name},</b> <br />How can I help you?</span>
+              <span className="position-absolute top-0 start-50 translate-middle">
+                Hi <b className="hero-gradient-word">{user.name},</b> <br />
+                How can I help you?
+              </span>
             </>
           ) : (
             <>
@@ -92,29 +94,28 @@ function Chat() {
             </>
           )}
         </h1>
-      }
+      )}
 
       <div className="chats" ref={chatsContainerRef}>
         {prevChats?.slice(0, -1).map((chat, idx) => {
-  if (chat.role === "user") {
-    return (
-      <div className="userMsgRow" key={idx}>
-        <p className="userMessage">{chat.content}</p>
-      </div>
-    );
-  } else {
-    return (
-      <div className="gptMsgRow" key={idx}>
-        <div className="assistantMessage">
-          <ReactMarkdown rehypePlugins={rehypeHighlight}>
-            {chat.content}
-          </ReactMarkdown>
-        </div>
-      </div>
-    );
-  }
-})}
-
+          if (chat.role === "user") {
+            return (
+              <div className="userMsgRow" key={idx}>
+                <p className="userMessage">{chat.content}</p>
+              </div>
+            );
+          } else {
+            return (
+              <div className="gptMsgRow" key={idx}>
+                <div className="assistantMessage">
+                  <ReactMarkdown rehypePlugins={rehypeHighlight}>
+                    {chat.content}
+                  </ReactMarkdown>
+                </div>
+              </div>
+            );
+          }
+        })}
 
         {prevChats?.length > 0 && (
           <>

@@ -1,4 +1,5 @@
-import "dotenv/config";
+import dotenv from "dotenv";
+dotenv.config();
 
 const getGroqAIResponse = async (input) => {
   try {
@@ -6,13 +7,9 @@ const getGroqAIResponse = async (input) => {
 
     let messages = [];
 
-    // ✅ If input is string
     if (typeof input === "string") {
       messages = [{ role: "user", content: input }];
-    }
-
-    // ✅ If input is array (same as your Gemini logic)
-    else if (Array.isArray(input)) {
+    } else if (Array.isArray(input)) {
       messages = input
         .filter((m) => m && m.content)
         .map((m) => ({
@@ -58,14 +55,12 @@ const getGroqAIResponse = async (input) => {
       return { response: "Upstream returned invalid JSON." };
     }
 
-    // ❌ API error handling
     if (!response.ok || data.error) {
       const msg = data?.error?.message || response.statusText || "Model error";
       console.error("Groq API error:", msg);
       return { response: msg };
     }
 
-    // ✅ Extract response
     const text = data?.choices?.[0]?.message?.content?.trim();
 
     if (text) {

@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import AuthLoader from "./AuthLoader.jsx";
 
-function Sidebar({user}) {
+function Sidebar({ user }) {
   const {
     sidebarOpen,
     setSidebarOpen,
@@ -17,26 +17,28 @@ function Sidebar({user}) {
     setCurrThreadId,
     setPrevChats,
   } = useContext(MyContext);
-  const {setAuthLoading}= useContext(MyContext);
-  
-  if (!sidebarOpen) return null; // ✅ hide sidebar when collapsed
+  const { setAuthLoading } = useContext(MyContext);
 
+  if (!sidebarOpen) return null; // ✅ hide sidebar when collapsed
 
   const getAllThreads = async () => {
     const token = localStorage.getItem("token");
     if (!token) return;
     try {
-      const response = await fetch("https://nexora-c41k.onrender.com/api/history", {
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/history`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
       const res = await response.json();
       if (!Array.isArray(res)) {
-      console.error("Unexpected response:", res);
-      setAllThreads([]);
-      return;
-    }
+        console.error("Unexpected response:", res);
+        setAllThreads([]);
+        return;
+      }
       const filteredData = res.map((thread) => ({
         threadId: thread.threadId,
         title: thread.title,
@@ -48,7 +50,7 @@ function Sidebar({user}) {
     }
   };
 
-    useEffect(() => {
+  useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       getAllThreads();
@@ -62,7 +64,6 @@ function Sidebar({user}) {
     setCurrThreadId(uuidv4());
     setPrevChats([]);
     setSidebarOpen(false);
-
   };
 
   const changeThread = async (newThreadId) => {
@@ -72,12 +73,12 @@ function Sidebar({user}) {
 
     try {
       const response = await fetch(
-        `https://nexora-c41k.onrender.com/api/thread/${newThreadId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/thread/${newThreadId}`,
         {
           headers: {
-            "Authorization": `Bearer ${token}`
-          }
-        }
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
       const res = await response.json();
       console.log(res);
@@ -94,43 +95,47 @@ function Sidebar({user}) {
     }
   };
 
-  const deleteThread = async(threadId) => {
+  const deleteThread = async (threadId) => {
     const token = localStorage.getItem("token");
     if (!token) return;
     try {
       const response = await fetch(
-        `https://nexora-c41k.onrender.com/api/thread/${threadId}`, 
+        `${import.meta.env.VITE_BACKEND_URL}/api/thread/${threadId}`,
         {
           method: "DELETE",
           headers: {
-            "Authorization": `Bearer ${token}`
-          }
-        }, 
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
-      const res=await response.json();
+      const res = await response.json();
       console.log(res);
       //updated threads re-render
-      setAllThreads(prev => prev.filter(
-        thread => 
-          thread.threadId !== threadId
-      ));
-      if(threadId === currThreadId) {
+      setAllThreads((prev) =>
+        prev.filter((thread) => thread.threadId !== threadId),
+      );
+      if (threadId === currThreadId) {
         createNewChat();
       }
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
-  }
+  };
   return (
     <section className="sidebar">
-       {/* Collapse button inside sidebar */}
-      <div className="collapseBtn" onClick={() => {setSidebarOpen(false)}}>
+      {/* Collapse button inside sidebar */}
+      <div
+        className="collapseBtn"
+        onClick={() => {
+          setSidebarOpen(false);
+        }}
+      >
         <i className="fa-solid fa-xmark"></i>
       </div>
-              {/* Logo at top */}
-        <div className="sidebarLogo">
-          <h3>Nexora</h3>
-        </div>
+      {/* Logo at top */}
+      <div className="sidebarLogo">
+        <h3>Nexora</h3>
+      </div>
       {/* new chat button */}
       <button onClick={createNewChat}>
         <i className="fa-solid fa-pen-to-square"></i>&nbsp;New chat
@@ -139,26 +144,40 @@ function Sidebar({user}) {
       {/* history */}
       <ul className="history">
         {!user ? (
-          <li className="no-history-msg"><h3><a href="/signup">signp</a> to use Nexora</h3></li>
+          <li className="no-history-msg">
+            <h3>
+              <a href="/signup">signp</a> to use Nexora
+            </h3>
+          </li>
         ) : allThreads?.length === 0 ? (
-          <li className="no-history-msg"><h3>No history available.</h3></li>
+          <li className="no-history-msg">
+            <h3>No history available.</h3>
+          </li>
         ) : (
           allThreads.map((thread, idx) => (
-            <li key={idx} onClick={() => { 
-              changeThread(thread.threadId);
-              setSidebarOpen(false);
-            }}
+            <li
+              key={idx}
+              onClick={() => {
+                changeThread(thread.threadId);
+                setSidebarOpen(false);
+              }}
               className={thread.threadId == currThreadId ? `highlighted` : ""}
             >
               {thread.title}
-              <i className="fa-solid fa-trash"
+              <i
+                className="fa-solid fa-trash"
                 onClick={(e) => {
                   e.stopPropagation();
-                  if (!window.confirm("Are you sure you want to delete this chat?")) return;
+                  if (
+                    !window.confirm(
+                      "Are you sure you want to delete this chat?",
+                    )
+                  )
+                    return;
                   deleteThread(thread.threadId);
                 }}
               ></i>
-            </li>  
+            </li>
           ))
         )}
       </ul>

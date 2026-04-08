@@ -28,7 +28,7 @@ function ChatWindow({ user }) {
   const navigate = useNavigate();
   const recognitionRef = useRef(null);
   const interimRef = useRef(""); // interim transcript
-  const finalRef = useRef("");   // final transcript
+  const finalRef = useRef(""); // final transcript
   const lastSentRef = useRef(""); // last user message actually sent
   const token = localStorage.getItem("token");
 
@@ -37,7 +37,7 @@ function ChatWindow({ user }) {
 
   useEffect(() => {
     setLoggedout(false);
-  }, [loggedout]);;
+  }, [loggedout]);
 
   // ---- SpeechRecognition setup (desktop + Android Chrome) ----
   useEffect(() => {
@@ -86,7 +86,9 @@ function ChatWindow({ user }) {
         console.warn("Speech error:", e.error);
         setIsListening(false);
         if (e.error === "not-allowed" || e.error === "service-not-allowed") {
-          alert("Microphone permission is blocked. In Chrome: lock icon → Microphone → Allow, or Settings → Site settings → Microphone.");
+          alert(
+            "Microphone permission is blocked. In Chrome: lock icon → Microphone → Allow, or Settings → Site settings → Microphone.",
+          );
         } else if (e.error === "audio-capture") {
           alert("No microphone detected or permission blocked in OS settings.");
         }
@@ -97,13 +99,18 @@ function ChatWindow({ user }) {
         const text = (finalRef.current || "").trim();
         if (!text) return;
         setPrompt(text);
-        if (!user) { alert("Sign up or login to chat with Nexora"); return; }
+        if (!user) {
+          alert("Sign up or login to chat with Nexora");
+          return;
+        }
         await getReply(text); // append handled after reply via lastSentRef
       };
     })();
 
     return () => {
-      try { recognitionRef.current?.stop(); } catch {}
+      try {
+        recognitionRef.current?.stop();
+      } catch {}
     };
   }, [user, setPrompt]);
 
@@ -112,7 +119,9 @@ function ChatWindow({ user }) {
     const rec = recognitionRef.current;
 
     if (!rec) {
-      alert("Voice input isn’t supported on this browser. Try Chrome on Android, or use the keyboard.");
+      alert(
+        "Voice input isn’t supported on this browser. Try Chrome on Android, or use the keyboard.",
+      );
       return;
     }
 
@@ -127,20 +136,28 @@ function ChatWindow({ user }) {
       // preflight: triggers permission prompt (HTTPS + user gesture required)
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       // free mic so SR can use it
-      stream.getTracks().forEach(t => t.stop());
+      stream.getTracks().forEach((t) => t.stop());
 
       rec.start(); // must be called directly in click handler on mobile
     } catch (err) {
       console.warn("getUserMedia error:", err?.name || err, err?.message);
-      alert("Microphone permission denied. Enable it in your browser/phone settings and try again.");
+      alert(
+        "Microphone permission denied. Enable it in your browser/phone settings and try again.",
+      );
     }
   };
 
   // ---- Send message to backend (uses override text if provided) ----
   const getReply = async (overrideText) => {
     const msg = (overrideText ?? prompt ?? "").trim();
-    if (!msg) { console.warn("Skip send: empty message"); return; }
-    if (!currThreadId) { console.warn("Skip send: missing threadId"); return; }
+    if (!msg) {
+      console.warn("Skip send: empty message");
+      return;
+    }
+    if (!currThreadId) {
+      console.warn("Skip send: missing threadId");
+      return;
+    }
 
     lastSentRef.current = msg; // remember what we actually sent
 
@@ -163,7 +180,10 @@ function ChatWindow({ user }) {
     };
 
     try {
-      const response = await fetch("https://nexora-c41k.onrender.com/api/chat", options);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/chat`,
+        options,
+      );
       const res = await response.json();
       if (!response.ok) {
         console.error("Chat error:", response.status, res);
@@ -200,10 +220,13 @@ function ChatWindow({ user }) {
 
   const handleLogout = async () => {
     try {
-      const res = await fetch("https://nexora-c41k.onrender.com/api/auth/logout", {
-        method: "POST",
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/logout`,
+        {
+          method: "POST",
+          credentials: "include",
+        },
+      );
       if (res.ok) {
         localStorage.removeItem("user");
         navigate("/login");
@@ -224,8 +247,14 @@ function ChatWindow({ user }) {
     if (!vv) return;
     const apply = () => {
       document.documentElement.style.setProperty("--vvh", `${vv.height}px`);
-      const bottomOffset = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
-      document.documentElement.style.setProperty("--vv-bottom", `${bottomOffset}px`);
+      const bottomOffset = Math.max(
+        0,
+        window.innerHeight - vv.height - vv.offsetTop,
+      );
+      document.documentElement.style.setProperty(
+        "--vv-bottom",
+        `${bottomOffset}px`,
+      );
     };
     apply();
     vv.addEventListener("resize", apply);
@@ -241,31 +270,47 @@ function ChatWindow({ user }) {
       <div className="navbar">
         <div className="navLeft">
           {!sidebarOpen && (
-            <div className="floatingHamburger" onClick={() => setSidebarOpen(true)}>
+            <div
+              className="floatingHamburger"
+              onClick={() => setSidebarOpen(true)}
+            >
               <i className="fa-solid fa-bars"></i>
             </div>
           )}
         </div>
 
         <div className="userIconDiv" onClick={handleProfileClick}>
-          <span className="userIcon">{user?.name?.[0]?.toUpperCase() || "?"}</span>
+          <span className="userIcon">
+            {user?.name?.[0]?.toUpperCase() || "?"}
+          </span>
           {isopen && (
             <div className="dropDown">
               {user ? (
                 <>
                   <p>{user.email}</p>
-                  <div className="dropDownItem"><i className="fa-solid fa-gear"></i> Settings</div>
-                  <div className="dropDownItem"><i className="fa-solid fa-cloud-arrow-up"></i> Upgrade Plan</div>
+                  <div className="dropDownItem">
+                    <i className="fa-solid fa-gear"></i> Settings
+                  </div>
+                  <div className="dropDownItem">
+                    <i className="fa-solid fa-cloud-arrow-up"></i> Upgrade Plan
+                  </div>
                   <div className="dropDownItem" onClick={handleLogout}>
-                    <i className="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                    <i className="fa-solid fa-arrow-right-from-bracket"></i> Log
+                    out
                   </div>
                 </>
               ) : (
                 <>
-                  <div className="dropDownItem" onClick={() => navigate("/signup")}>
+                  <div
+                    className="dropDownItem"
+                    onClick={() => navigate("/signup")}
+                  >
                     <i className="fa-solid fa-user-plus"></i> Sign up
                   </div>
-                  <div className="dropDownItem" onClick={() => navigate("/login")}>
+                  <div
+                    className="dropDownItem"
+                    onClick={() => navigate("/login")}
+                  >
                     <i className="fa-solid fa-right-to-bracket"></i> Log in
                   </div>
                 </>

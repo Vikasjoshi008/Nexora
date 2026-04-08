@@ -1,5 +1,4 @@
 import express, { json } from "express";
-import "dotenv/config";
 import dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
