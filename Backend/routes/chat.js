@@ -1,82 +1,84 @@
-import express from 'express';
+import express from "express";
 import fetch from "node-fetch"; // or global fetch if available
-import Thread from '../models/Thread.js'
-import  getGeminiAIAPIResponse from "../utils/geminiai.js"
-import {requireAuth} from './requireAuth.js'
-import mongoose from 'mongoose';
+import Thread from "../models/Thread.js";
+import getGroqAIResponse from "../utils/geminiai.js";
+import { requireAuth } from "./requireAuth.js";
+import mongoose from "mongoose";
 
-const router=express.Router();
+const router = express.Router();
 
 router.get("/user", requireAuth, async (req, res) => {
-    try {
-        const userId = new mongoose.Types.ObjectId(req.user.id);
-        const threads = await Thread.find({ user: userId });
-        res.json(threads);
-    } catch (err) {
-        console.error("❌ Failed to fetch user threads:", err);
-        res.status(500).json({ error: "Failed to fetch threads" });
-    }
+  try {
+    const userId = new mongoose.Types.ObjectId(req.user.id);
+    const threads = await Thread.find({ user: userId });
+    res.json(threads);
+  } catch (err) {
+    console.error("❌ Failed to fetch user threads:", err);
+    res.status(500).json({ error: "Failed to fetch threads" });
+  }
 });
 
-
 //test
-router.post("/test", async(req, res) => {
-    try {
-        const thread=new Thread({
-            threadId: "xyz",
-            title: "testing new thread",
-        });
-        const response=await thread.save();
-        res.send(response);
-    } catch (err) {
-        console.log("Failed to post", err);
-        res.status(500).json({error: "Failed to save in database"});
-    }
+router.post("/test", async (req, res) => {
+  try {
+    const thread = new Thread({
+      threadId: "xyz",
+      title: "testing new thread",
+    });
+    const response = await thread.save();
+    res.send(response);
+  } catch (err) {
+    console.log("Failed to post", err);
+    res.status(500).json({ error: "Failed to save in database" });
+  }
 });
 
 //get all threads
-router.get("/thread", requireAuth, async(req, res) => {
-    try {
-        const threads=await Thread.find({}).sort({updatedAt: -1});
-        res.json(threads);
-    } catch (err) {
-        console.log("Failed to post", err);
-        res.status(500).json({error: "Failed to fetch"});
-    }
+router.get("/thread", requireAuth, async (req, res) => {
+  try {
+    const threads = await Thread.find({}).sort({ updatedAt: -1 });
+    res.json(threads);
+  } catch (err) {
+    console.log("Failed to post", err);
+    res.status(500).json({ error: "Failed to fetch" });
+  }
 });
 
 // get all threads for the logged-in user
-router.get("/history", requireAuth, async(req, res) => {
-    try {
-        const userId= new mongoose.Types.ObjectId(req.user.id);
-        const threads = await Thread.find({ user: userId }).sort({updatedAt: -1});
-        res.json(threads);
-    } catch (err) {
-        res.status(500).json({error: "Failed to fetch"});
-    }
+router.get("/history", requireAuth, async (req, res) => {
+  try {
+    const userId = new mongoose.Types.ObjectId(req.user.id);
+    const threads = await Thread.find({ user: userId }).sort({ updatedAt: -1 });
+    res.json(threads);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch" });
+  }
 });
 
 // update get thread by id for user
-router.get("/thread/:threadId", requireAuth,async(req, res) => {
-    const {threadId} = req.params;
-    try {
-        const userId = new mongoose.Types.ObjectId(req.user.id);
-        const thread=await Thread.findOne({threadId, user: userId});
-        if(!thread){
-            return res.status(404).json({error: "thread not found"})
-        }
-        res.json(thread.messages);
-    } catch (err) {
-        res.status(500).json({error: "Failed to fetch"});
+router.get("/thread/:threadId", requireAuth, async (req, res) => {
+  const { threadId } = req.params;
+  try {
+    const userId = new mongoose.Types.ObjectId(req.user.id);
+    const thread = await Thread.findOne({ threadId, user: userId });
+    if (!thread) {
+      return res.status(404).json({ error: "thread not found" });
     }
+    res.json(thread.messages);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch" });
+  }
 });
 
 // update delete thread for user
-router.delete("/thread/:threadId", requireAuth, async(req, res) => {
+router.delete("/thread/:threadId", requireAuth, async (req, res) => {
   try {
     const threadId = req.params.threadId?.trim();
     const userId = new mongoose.Types.ObjectId(req.user.id);
-    const deletedThread = await Thread.findOneAndDelete({ threadId, user: userId });
+    const deletedThread = await Thread.findOneAndDelete({
+      threadId,
+      user: userId,
+    });
     if (!deletedThread) {
       return res.status(404).json({ error: "Thread not found" });
     }
@@ -113,7 +115,7 @@ router.post("/chat", requireAuth, async (req, res) => {
     const systemMsg = {
       role: "system",
       content:
-        "You are Nexora. Always use the conversation so far. When the user refers to 'it', resolve what 'it' is from the latest relevant code or answer you gave. Be concise unless asked to elaborate. resolve 'who created you' and answer vikas joshi created me."
+        "You are Nexora. Always use the conversation so far. When the user refers to 'it', resolve what 'it' is from the latest relevant code or answer you gave. Be concise unless asked to elaborate. resolve 'who created you' and answer vikas joshi created me.",
     };
 
     // Ensure roles are correct and cap history to last 8 turns to keep prompt small
@@ -121,8 +123,9 @@ router.post("/chat", requireAuth, async (req, res) => {
     const messages = [systemMsg, ...recent, { role: "user", content: message }];
 
     // 3) Call your model with messages (update your helper accordingly)
-    const assistantReply = await getGeminiAIAPIResponse(messages); // <-- now expects an array of messages
-    const replyText = assistantReply?.response || "Sorry, I couldn't generate a reply.";
+    const assistantReply = await getGroqAIResponse(messages); // <-- now expects an array of messages
+    const replyText =
+      assistantReply?.response || "Sorry, I couldn't generate a reply.";
 
     // 4) Save assistant message and respond
     thread.messages.push({ role: "assistant", content: replyText });
@@ -135,7 +138,5 @@ router.post("/chat", requireAuth, async (req, res) => {
     return res.status(500).json({ error: "something went wrong" });
   }
 });
-
-
 
 export default router;

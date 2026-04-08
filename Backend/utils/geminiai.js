@@ -1,67 +1,45 @@
 import "dotenv/config";
 
-/**
- * getGeminiAIAPIResponse(input)
- * - input can be a string OR an array of messages [{ role:"system"|"user"|"assistant", content:"..." }]
- * - returns { response: string }
- */
-const getGeminiAIAPIResponse = async (input) => {
+const getGroqAIResponse = async (input) => {
   try {
-    const MODEL = "gemini-2.5-flash";
-    const url = `https://generativelanguage.googleapis.com/v1/models/${MODEL}:generateContent?key=${process.env.GEMINI_API_KEY}`;
+    const url = "https://api.groq.com/openai/v1/chat/completions";
 
-    // --- Build contents[] for Gemini REST ---
-    // If input is a string -> single user message
-    // If array -> convert to {role: "user"|"model", parts:[{text}]} list
-    let contents = [];
+    let messages = [];
 
+    // ✅ If input is string
     if (typeof input === "string") {
-      contents = [
-        {
-          role: "user",
-          parts: [{ text: input }],
-        },
-      ];
-    } else if (Array.isArray(input)) {
-      let systemBuffer = ""; // accumulate system text to fold into first user msg
-
-      for (const m of input) {
-        if (!m || !m.content) continue;
-
-        if (m.role === "system") {
-          // Gemini REST has no system role; fold it into context as user text
-          systemBuffer += (systemBuffer ? "\n\n" : "") + String(m.content);
-          continue;
-        }
-
-        const role = m.role === "assistant" ? "model" : "user";
-        const text = String(m.content);
-
-        // If we have system context waiting and this is the first real user turn, prepend it
-        if (systemBuffer && role === "user" && contents.length === 0) {
-          contents.push({
-            role: "user",
-            parts: [{ text: systemBuffer + "\n\n" + text }],
-          });
-          systemBuffer = "";
-        } else {
-          contents.push({ role, parts: [{ text }] });
-        }
-      }
-
-      // If conversation had only assistant messages after system, still inject system once
-      if (systemBuffer && contents.length === 0) {
-        contents.push({ role: "user", parts: [{ text: systemBuffer }] });
-      }
-    } else {
-      return { response: "Invalid input for Gemini helper." };
+      messages = [{ role: "user", content: input }];
     }
 
-    const payload = { contents };
+    // ✅ If input is array (same as your Gemini logic)
+    else if (Array.isArray(input)) {
+      messages = input
+        .filter((m) => m && m.content)
+        .map((m) => ({
+          role:
+            m.role === "assistant"
+              ? "assistant"
+              : m.role === "system"
+                ? "system"
+                : "user",
+          content: String(m.content),
+        }));
+    } else {
+      return { response: "Invalid input for Groq helper." };
+    }
+
+    const payload = {
+      model: "llama3-8b-8192", // 🔥 fast + free
+      messages,
+      temperature: 0.7,
+    };
 
     const response = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+      },
       body: JSON.stringify(payload),
     });
 
@@ -71,33 +49,32 @@ const getGeminiAIAPIResponse = async (input) => {
     try {
       data = JSON.parse(rawText);
     } catch (err) {
-      console.error("Failed to parse JSON:", err.message, "\nRaw:", rawText.slice(0, 400));
+      console.error(
+        "Failed to parse JSON:",
+        err.message,
+        "\nRaw:",
+        rawText.slice(0, 400),
+      );
       return { response: "Upstream returned invalid JSON." };
     }
 
-    // API error handling
+    // ❌ API error handling
     if (!response.ok || data.error) {
       const msg = data?.error?.message || response.statusText || "Model error";
-      console.error("Gemini API error:", msg);
+      console.error("Groq API error:", msg);
       return { response: msg };
     }
 
-    // Safety/prompt block check
-    const block = data?.promptFeedback?.blockReason;
-    if (block) {
-      console.warn("Prompt blocked:", block);
-      return { response: "I can't answer that due to safety filters." };
-    }
-
-    // Extract text from candidates
-    const parts = data?.candidates?.[0]?.content?.parts || [];
-    const text = parts.map(p => p?.text).filter(Boolean).join("\n").trim();
+    // ✅ Extract response
+    const text = data?.choices?.[0]?.message?.content?.trim();
 
     if (text) {
-      // console.log("Gemini response:", text);
       return { response: text };
     } else {
-      console.error("Unexpected response format:", JSON.stringify(data)?.slice(0, 400));
+      console.error(
+        "Unexpected response:",
+        JSON.stringify(data)?.slice(0, 400),
+      );
       return { response: "Sorry, I couldn't generate a reply." };
     }
   } catch (err) {
@@ -106,4 +83,4 @@ const getGeminiAIAPIResponse = async (input) => {
   }
 };
 
-export default getGeminiAIAPIResponse;
+export default getGroqAIResponse;
